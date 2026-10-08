@@ -49,10 +49,12 @@
     const state = document.getElementById('bf-login-state');
     if (!status.configured) {
       state.textContent = 'No login stored yet. Enter your Brink Home account below.';
+      document.getElementById('bf-pass').placeholder = 'Password';
       document.getElementById('bf-systems').innerHTML = '';
       return;
     }
-    state.textContent = `Logged in as ${status.username}.`;
+    state.innerHTML = `<span class="text-success">&#10004; Logged in to Brink Home as <b>${esc(status.username)}</b>.</span>`;
+    document.getElementById('bf-pass').placeholder = '••••••••  (saved - type a new password to change it)';
     document.getElementById('bf-user').value = status.username;
     document.getElementById('bf-systems').innerHTML = status.systems.map((s) => {
       const byName = Object.fromEntries(s.params.map((p) => [p.name, p]));
@@ -78,6 +80,7 @@
   document.getElementById('bf-save').addEventListener('click', async () => {
     const username = document.getElementById('bf-user').value.trim();
     const password = document.getElementById('bf-pass').value;
+    if (!password) { homebridge.toast.info('Type the password to change the stored login.'); return; }
     homebridge.showSpinner();
     try {
       const r = await homebridge.request('/credentials', { username, password });
