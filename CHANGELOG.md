@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.1
+- All asynchronous work (start-up, polling, writes) catches and logs its own errors.
+
 ## 1.0.0
 - First public release. Tested on a Brink Flair 400 with Homebridge 2.4.0 and Node.js 24.
 
