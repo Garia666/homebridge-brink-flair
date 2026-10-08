@@ -105,9 +105,8 @@
     homebridge.showSpinner();
     try {
       const d = await homebridge.request('/diagnostics');
-      const text = '```json
-' + JSON.stringify(d, null, 2) + '
-```';
+      const fence = '`'.repeat(3);
+      const text = `${fence}json\n${JSON.stringify(d, null, 2)}\n${fence}`;
       const box = document.getElementById('bf-diag-text');
       box.value = text;
       box.style.display = 'block';

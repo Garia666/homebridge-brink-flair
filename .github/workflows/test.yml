@@ -16,3 +16,7 @@ jobs:
       - run: npm install
       - name: Modules load and schema is valid
         run: node -e "for (const f of ['./index.js','./lib/platform','./lib/flairAccessory','./lib/flairPicker','./lib/brinkClient','./lib/credentials','./lib/names']) require(f); JSON.parse(require('fs').readFileSync('config.schema.json'))"
+      - name: Settings page script has no syntax errors
+        run: |
+          node -e "const s=require('fs').readFileSync('homebridge-ui/public/index.html','utf8'); require('fs').writeFileSync('/tmp/ui.js', s.slice(s.indexOf('<script>')+8, s.lastIndexOf('</script>')))"
+          node --check /tmp/ui.js

@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.2
+- Fix: the settings page did not load (script error since 0.7.0), so the login and unit information were not shown.
+
 ## 1.0.1
 - All asynchronous work (start-up, polling, writes) catches and logs its own errors.
 
