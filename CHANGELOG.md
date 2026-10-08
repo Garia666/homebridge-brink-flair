@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.0
+- First public release. Tested on a Brink Flair 400 with Homebridge 2.4.0 and Node.js 24.
+
 ## 0.7.1
 - Diagnostics: read the Homebridge version correctly on Homebridge 2.
 

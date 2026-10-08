@@ -24,4 +24,11 @@ jobs:
       - run: npm ci || npm install
       - name: Version matches release tag
         run: test "v$(node -p "require('./package.json').version")" = "${GITHUB_REF_NAME}"
-      - run: npm publish --provenance --access public
+      - name: Publish (skipped when this version is already on npm)
+        run: |
+          V=$(node -p "require('./package.json').version")
+          if npm view "homebridge-brink-flair@$V" version >/dev/null 2>&1; then
+            echo "Version $V is already on npm, nothing to publish."
+          else
+            npm publish --provenance --access public
+          fi
