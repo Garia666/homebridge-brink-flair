@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.0
+- Debug logging option: every Brink Home request, the values read and written. No passwords or tokens.
+- Copy diagnostics button on the settings page for GitHub issues (versions and all unit values; e-mail, serial and IP masked).
+- Log messages in English.
+
 ## 0.6.0
 - All tile and level names can be set in the plugin settings, with Dutch defaults and English descriptions.
 - Units without an operating mode log a warning instead of failing when set to automatic.

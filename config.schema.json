@@ -22,12 +22,14 @@
       "filterName": { "title": "Filter status name", "description": "Filter indication shown on the fan tile.", "type": "string", "default": "Filter" },
       "alertSensors": { "title": "Alert sensors for notifications", "description": "Contact sensors that open when the filter needs replacing or the unit reports a fault. Turn on notifications for them in the Home app.", "type": "boolean", "default": true },
       "filterAlertName": { "title": "Filter alert sensor name", "description": "Opens when the filter needs replacing.", "type": "string", "default": "WTW filter" },
+      "debug": { "title": "Debug logging", "description": "Log every Brink Home request, the values read and the values written. Turn on when reporting an issue. Passwords and tokens are never logged.", "type": "boolean", "default": false },
       "faultAlertName": { "title": "Fault alert sensor name", "description": "Opens when the unit reports a fault.", "type": "string", "default": "WTW storing" }
     }
   },
   "layout": [
     "name",
     "pollSeconds",
+    "debug",
     {
       "type": "fieldset",
       "title": "Level picker (like TV inputs)",

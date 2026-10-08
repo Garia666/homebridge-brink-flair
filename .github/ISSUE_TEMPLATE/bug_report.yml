@@ -1,0 +1,30 @@
+name: Bug report
+description: Something does not work as expected
+labels: [bug]
+body:
+  - type: input
+    id: model
+    attributes:
+      label: Brink unit
+      description: Model as shown in Brink Home, e.g. Flair 400, Flair 325, Renovent Excellent 300.
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: Plugin settings page > Diagnostics > Copy diagnostics, and paste here.
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Homebridge log
+      description: Turn on "Debug logging" in the plugin settings, restart Homebridge, reproduce the problem and paste the lines with [debug] and the plugin name.
+      render: text

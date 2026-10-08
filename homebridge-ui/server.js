@@ -14,6 +14,7 @@ const credentials = require('../lib/credentials');
       super();
       this.onRequest('/credentials', (p) => this.saveCredentials(p));
       this.onRequest('/status', () => this.status());
+      this.onRequest('/diagnostics', () => this.diagnostics());
       this.ready();
     }
 
@@ -28,6 +29,42 @@ const credentials = require('../lib/credentials');
       } catch (e) {
         throw new RequestError(e.message, { status: 400 });
       }
+    }
+
+    // Diagnose voor GitHub-issues: versies en alle ruwe parameters, zonder inlog en met gemaskeerde gegevens.
+    async diagnostics() {
+      const version = (mod) => { try { return require(`${mod}/package.json`).version; } catch { return 'unknown'; } };
+      const out = {
+        plugin: require('../package.json').version,
+        homebridge: process.env.HOMEBRIDGE_VERSION || version('homebridge'),
+        node: process.version,
+        platform: `${process.platform} ${process.arch}`,
+      };
+      let cred;
+      try { cred = credentials.load(this.homebridgeStoragePath); } catch (e) { out.loginError = e.message; }
+      if (!cred) return { ...out, configured: false };
+      out.account = cred.username.replace(/^(.).*(@.*)$/, '$1***$2');
+      try {
+        const client = new BrinkClient(cred);
+        out.systems = [];
+        for (const s of await client.getSystems()) {
+          const params = await client.getParameters(s.id);
+          out.systems.push({
+            name: s.name,
+            serial: s.serial ? `********${String(s.serial).slice(-4)}` : null,
+            gatewayState: s.gatewayState,
+            parameters: Object.values(params).map((p) => ({
+              name: p.name,
+              value: /IP Adresse|DNS/.test(p.name) ? 'x.x.x.x' : p.value,
+              unit: p.unit, readWrite: p.readWrite, controlType: p.controlType,
+              options: p.options.map((o) => `${o.value}=${o.label}`),
+            })),
+          });
+        }
+      } catch (e) {
+        out.error = e.message;
+      }
+      return out;
     }
 
     async status() {

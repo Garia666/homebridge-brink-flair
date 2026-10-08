@@ -16,6 +16,13 @@
 
 <div id="bf-systems"></div>
 
+<div class="card card-body bf-card">
+  <h5>Diagnostics</h5>
+  <p class="bf-muted">Opening an issue on GitHub? Copy the diagnostics and paste them in the issue. They contain the versions and all values Brink Home reports for your unit. Your password is never included; e-mail, serial number and IP address are masked.</p>
+  <button class="btn btn-secondary" id="bf-diag">Copy diagnostics</button>
+  <textarea class="form-control mt-2" id="bf-diag-text" rows="8" style="display:none; font-family: monospace; font-size: .8em;" readonly></textarea>
+</div>
+
 <script>
   // Duitse parameternamen uit Brink Home -> leesbare labels, in vaste volgorde.
   const LABELS = [
@@ -89,6 +96,25 @@
       await load();
     } catch (e) {
       homebridge.toast.error(e.message, 'Login failed');
+    } finally {
+      homebridge.hideSpinner();
+    }
+  });
+
+  document.getElementById('bf-diag').addEventListener('click', async () => {
+    homebridge.showSpinner();
+    try {
+      const d = await homebridge.request('/diagnostics');
+      const text = '```json
+' + JSON.stringify(d, null, 2) + '
+```';
+      const box = document.getElementById('bf-diag-text');
+      box.value = text;
+      box.style.display = 'block';
+      try { await navigator.clipboard.writeText(text); homebridge.toast.success('Diagnostics copied to the clipboard.'); }
+      catch { box.select(); homebridge.toast.info('Select the text below and copy it.'); }
+    } catch (e) {
+      homebridge.toast.error(e.message, 'Diagnostics failed');
     } finally {
       homebridge.hideSpinner();
     }
