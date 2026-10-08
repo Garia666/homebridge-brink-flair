@@ -1,0 +1,96 @@
+<style>
+  .bf-card { margin-bottom: 1rem; }
+  .bf-table td:first-child { width: 45%; color: var(--bs-secondary-color, #888); }
+  .bf-table td { padding: .25rem .5rem; }
+  .bf-muted { opacity: .7; font-size: .9em; }
+</style>
+
+<div class="card card-body bf-card">
+  <h5>Brink Home login</h5>
+  <p class="bf-muted" id="bf-login-state">Checking…</p>
+  <div class="mb-2"><input class="form-control" id="bf-user" type="email" placeholder="E-mail address" autocomplete="username"></div>
+  <div class="mb-2"><input class="form-control" id="bf-pass" type="password" placeholder="Password" autocomplete="current-password"></div>
+  <button class="btn btn-primary" id="bf-save">Save login</button>
+  <p class="bf-muted mt-2">The login is tested, then stored encrypted on this machine. It is not written to config.json.</p>
+</div>
+
+<div id="bf-systems"></div>
+
+<script>
+  // Duitse parameternamen uit Brink Home -> leesbare labels, in vaste volgorde.
+  const LABELS = [
+    ['deviceTypeTitle', 'Model'],
+    ['softwareLabel', 'Software'],
+    ['IP Adresse', 'IP address'],
+    ['DNS Namensserver', 'DNS server'],
+    ['Betriebsart', 'Operating mode'],
+    ['Lüftungsstufe', 'Ventilation level'],
+    ['Aktive Regelung', 'Active control'],
+    ['Restlaufzeit Betriebsartfunktion', 'Mode time remaining'],
+    ['Ist-Wert Luftdurchsatz Zuluft', 'Supply air flow'],
+    ['Ist-Wert Luftdurchsatz Abluft', 'Exhaust air flow'],
+    ['Frischlufttemperatur', 'Fresh air temperature'],
+    ['Zulufttemperatur', 'Supply air temperature'],
+    ['Status Bypassklappe', 'Bypass valve'],
+    ['Funktion der Bypass Klappe', 'Bypass function'],
+    ['Status Vorheizregister', 'Pre-heater'],
+    ['Relative Feuchte', 'Relative humidity'],
+    ['Status Filtermeldung', 'Filter status'],
+    ['Anzahl der Tage seit Filterreset', 'Days since filter reset'],
+  ];
+  const GATEWAY = { 0: 'locked', 1: 'offline', 2: 'online' };
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  function row(label, value) {
+    return `<tr><td>${esc(label)}</td><td>${esc(value)}</td></tr>`;
+  }
+
+  function render(status) {
+    const state = document.getElementById('bf-login-state');
+    if (!status.configured) {
+      state.textContent = 'No login stored yet. Enter your Brink Home account below.';
+      document.getElementById('bf-systems').innerHTML = '';
+      return;
+    }
+    state.textContent = `Logged in as ${status.username}.`;
+    document.getElementById('bf-user').value = status.username;
+    document.getElementById('bf-systems').innerHTML = status.systems.map((s) => {
+      const byName = Object.fromEntries(s.params.map((p) => [p.name, p]));
+      const rows = [row('Name', s.name), row('Serial number', s.serial), row('Brink Home connection', GATEWAY[s.gatewayState] ?? s.gatewayState)];
+      const known = new Set(LABELS.map(([n]) => n));
+      for (const [name, label] of LABELS) {
+        const p = byName[name];
+        if (p) rows.push(row(label, `${p.label ?? p.value}${p.unit ? ' ' + p.unit : ''}`));
+      }
+      for (const p of s.params.filter((x) => !known.has(x.name))) rows.push(row(p.name, `${p.label ?? p.value}${p.unit ? ' ' + p.unit : ''}`));
+      return `<div class="card card-body bf-card"><h5>${esc(s.name)}</h5><table class="bf-table">${rows.join('')}</table></div>`;
+    }).join('');
+  }
+
+  async function load() {
+    try {
+      render(await homebridge.request('/status'));
+    } catch (e) {
+      document.getElementById('bf-login-state').textContent = `Brink Home not reachable: ${e.message}`;
+    }
+  }
+
+  document.getElementById('bf-save').addEventListener('click', async () => {
+    const username = document.getElementById('bf-user').value.trim();
+    const password = document.getElementById('bf-pass').value;
+    homebridge.showSpinner();
+    try {
+      const r = await homebridge.request('/credentials', { username, password });
+      document.getElementById('bf-pass').value = '';
+      homebridge.toast.success(`Login saved. Found: ${r.systems.join(', ') || 'no systems'}. Restart Homebridge to apply.`);
+      await load();
+    } catch (e) {
+      homebridge.toast.error(e.message, 'Login failed');
+    } finally {
+      homebridge.hideSpinner();
+    }
+  });
+
+  homebridge.showSchemaForm();
+  load();
+</script>
