@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.7.1
+- Diagnostics: read the Homebridge version correctly on Homebridge 2.
+
 ## 0.7.0
 - Debug logging option: every Brink Home request, the values read and written. No passwords or tokens.
 - Copy diagnostics button on the settings page for GitHub issues (versions and all unit values; e-mail, serial and IP masked).

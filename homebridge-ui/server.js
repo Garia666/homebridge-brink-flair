@@ -5,6 +5,8 @@
 
 const { BrinkClient } = require('../lib/brinkClient');
 const credentials = require('../lib/credentials');
+const fs = require('node:fs');
+const path = require('node:path');
 
 (async () => {
   const { HomebridgePluginUiServer, RequestError } = await import('@homebridge/plugin-ui-utils');
@@ -33,7 +35,19 @@ const credentials = require('../lib/credentials');
 
     // Diagnose voor GitHub-issues: versies en alle ruwe parameters, zonder inlog en met gemaskeerde gegevens.
     async diagnostics() {
-      const version = (mod) => { try { return require(`${mod}/package.json`).version; } catch { return 'unknown'; } };
+      // Homebridge 2 exporteert package.json niet: zoek het bestand vanaf het hoofdbestand omhoog.
+      const version = (mod) => {
+        try {
+          for (let d = path.dirname(require.resolve(mod)); d !== path.dirname(d); d = path.dirname(d)) {
+            const f = path.join(d, 'package.json');
+            if (fs.existsSync(f)) {
+              const j = JSON.parse(fs.readFileSync(f, 'utf8'));
+              if (j.name === mod) return j.version;
+            }
+          }
+        } catch { /* niet gevonden */ }
+        return 'unknown';
+      };
       const out = {
         plugin: require('../package.json').version,
         homebridge: process.env.HOMEBRIDGE_VERSION || version('homebridge'),
