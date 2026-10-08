@@ -4,6 +4,12 @@ Control your **Brink Flair** heat recovery ventilation unit (WTW) from Apple Hom
 
 Tested on a **Flair 400**. Other units that work with Brink Home are expected to work too (see [Compatibility](#compatibility)).
 
+## Requirements
+
+- **Homebridge 1.8 or newer, including Homebridge 2.** Tested on Homebridge 2.4.0.
+- **Node.js 20, 22 or 24.** Tested on Node.js 24.21.0.
+- A Brink unit connected to **Brink Home** (see below) and an internet connection.
+
 ## What you get in the Home app
 
 | Tile | What it does |
