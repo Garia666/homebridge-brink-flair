@@ -1,6 +1,6 @@
 {
   "name": "homebridge-brink-flair",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Brink Flair heat recovery ventilation in HomeKit via Brink Home",
   "main": "index.js",
   "license": "MIT",
