@@ -4,7 +4,7 @@
   "description": "Brink Flair heat recovery ventilation in HomeKit via Brink Home",
   "main": "index.js",
   "license": "MIT",
-  "author": "Garia.Net",
+  "author": "Garia.Net (https://garia.net)",
   "keywords": [
     "homebridge-plugin",
     "brink",
@@ -42,5 +42,16 @@
       "type": "individual",
       "url": "https://garia.net"
     }
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Garia666/homebridge-brink-flair.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Garia666/homebridge-brink-flair/issues"
+  },
+  "homepage": "https://github.com/Garia666/homebridge-brink-flair#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }

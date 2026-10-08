@@ -1,0 +1,27 @@
+# Publiceert naar npm bij elke GitHub-release, via npm Trusted Publishing (OIDC):
+# geen token nodig. Vooraf eenmalig instellen op npmjs.com > package > Settings >
+# Trusted Publisher: GitHub Actions, Garia666 / homebridge-brink-flair / publish.yml.
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - run: npm install -g npm@latest
+      - run: npm ci || npm install
+      - name: Version matches release tag
+        run: test "v$(node -p "require('./package.json').version")" = "${GITHUB_REF_NAME}"
+      - run: npm publish --provenance --access public
