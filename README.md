@@ -11,7 +11,7 @@ HomeKit shows:
 
 1. Install the plugin and add the platform to `config.json`:
    ```json
-   { "platform": "BrinkFlair", "name": "Ventilatie", "pollSeconds": 60 }
+   { "platform": "BrinkFlair", "name": "WTW", "pollSeconds": 60 }
    ```
 2. Store the Brink Home login encrypted (two lines on stdin: e-mail, password):
    ```

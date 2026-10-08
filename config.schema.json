@@ -6,7 +6,7 @@
   "schema": {
     "type": "object",
     "properties": {
-      "name": { "title": "Name", "type": "string", "default": "Ventilatie" },
+      "name": { "title": "Name", "type": "string", "default": "WTW" },
       "pollSeconds": { "title": "Refresh interval (seconds)", "type": "integer", "default": 60, "minimum": 30 }
     }
   }
