@@ -8,6 +8,7 @@
     "properties": {
       "name": { "title": "Name", "type": "string", "default": "WTW" },
       "pollSeconds": { "title": "Refresh interval (seconds)", "type": "integer", "default": 60, "minimum": 30 },
+      "alertSensors": { "title": "Alert sensors (filter / fault)", "description": "Contact sensors that open when the filter needs replacing or the unit reports a fault, so the Home app can send notifications.", "type": "boolean", "default": true },
       "picker": { "title": "Level picker tile (like TV inputs)", "description": "Extra tile with named levels. Added separately in the Home app with the bridge setup code.", "type": "boolean", "default": true },
       "levelNames": { "title": "Level names (level 0-3)", "type": "array", "maxItems": 4, "items": { "type": "string" }, "default": ["Afwezig", "Laag", "Normaal", "Hoog"] }
     }
