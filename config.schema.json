@@ -2,48 +2,43 @@
   "pluginAlias": "BrinkFlair",
   "pluginType": "platform",
   "singular": true,
-  "headerDisplay": "Brink Flair via Brink Home. Enter your Brink Home login above; it is stored encrypted, not in config.json.",
+  "customUi": true,
+  "headerDisplay": "Brink Flair via Brink Home. Enter your Brink Home login above; it is stored encrypted, not in config.json. All names below default to Dutch and can be changed. HomeKit keeps the name of an accessory that is already added, so rename those in the Home app.",
+  "footerDisplay": "Like this plugin? Support it at [garia.net](https://garia.net) or [Ko-fi](https://ko-fi.com/garianet).",
   "schema": {
     "type": "object",
     "properties": {
-      "name": {
-        "title": "Name",
-        "type": "string",
-        "default": "WTW"
-      },
-      "pollSeconds": {
-        "title": "Refresh interval (seconds)",
-        "type": "integer",
-        "default": 60,
-        "minimum": 30
-      },
-      "alertSensors": {
-        "title": "Alert sensors (filter / fault)",
-        "description": "Contact sensors that open when the filter needs replacing or the unit reports a fault, so the Home app can send notifications.",
-        "type": "boolean",
-        "default": true
-      },
-      "picker": {
-        "title": "Level picker tile (like TV inputs)",
-        "description": "Extra tile with named levels. Added separately in the Home app with the bridge setup code.",
-        "type": "boolean",
-        "default": true
-      },
-      "levelNames": {
-        "title": "Level names (level 0-3)",
-        "type": "array",
-        "maxItems": 4,
-        "items": {
-          "type": "string"
-        },
-        "default": [
-          "Afwezig",
-          "Laag",
-          "Normaal",
-          "Hoog"
-        ]
-      }
+      "name": { "title": "Fan tile name", "description": "Main tile: off = automatic, 25/50/75/100% = level 0/1/2/3.", "type": "string", "default": "WTW" },
+      "pollSeconds": { "title": "Refresh interval (seconds)", "description": "How often values are read from Brink Home. Minimum 30.", "type": "integer", "default": 60, "minimum": 30 },
+      "picker": { "title": "Show level picker tile", "description": "Extra tile with named levels, like the inputs of a TV. Add it separately in the Home app with the bridge setup code.", "type": "boolean", "default": true },
+      "pickerName": { "title": "Level picker tile name", "type": "string", "default": "WTW stand" },
+      "autoName": { "title": "Picker: automatic mode", "description": "The unit controls the level itself.", "type": "string", "default": "Automatisch" },
+      "level0Name": { "title": "Picker: level 0", "description": "Lowest level (away).", "type": "string", "default": "Afwezig" },
+      "level1Name": { "title": "Picker: level 1", "description": "Low.", "type": "string", "default": "Laag" },
+      "level2Name": { "title": "Picker: level 2", "description": "Normal.", "type": "string", "default": "Normaal" },
+      "level3Name": { "title": "Picker: level 3", "description": "Highest level (boost, e.g. when showering).", "type": "string", "default": "Hoog" },
+      "freshAirName": { "title": "Fresh air temperature sensor name", "description": "Outside air entering the unit.", "type": "string", "default": "WTW buitenlucht" },
+      "supplyAirName": { "title": "Supply air temperature sensor name", "description": "Air blown into the house after heat recovery.", "type": "string", "default": "WTW toevoerlucht" },
+      "filterName": { "title": "Filter status name", "description": "Filter indication shown on the fan tile.", "type": "string", "default": "Filter" },
+      "alertSensors": { "title": "Alert sensors for notifications", "description": "Contact sensors that open when the filter needs replacing or the unit reports a fault. Turn on notifications for them in the Home app.", "type": "boolean", "default": true },
+      "filterAlertName": { "title": "Filter alert sensor name", "description": "Opens when the filter needs replacing.", "type": "string", "default": "WTW filter" },
+      "faultAlertName": { "title": "Fault alert sensor name", "description": "Opens when the unit reports a fault.", "type": "string", "default": "WTW storing" }
     }
   },
-  "customUi": true
+  "layout": [
+    "name",
+    "pollSeconds",
+    {
+      "type": "fieldset",
+      "title": "Level picker (like TV inputs)",
+      "expandable": true,
+      "items": ["picker", "pickerName", "autoName", "level0Name", "level1Name", "level2Name", "level3Name"]
+    },
+    {
+      "type": "fieldset",
+      "title": "Sensors",
+      "expandable": true,
+      "items": ["freshAirName", "supplyAirName", "filterName", "alertSensors", "filterAlertName", "faultAlertName"]
+    }
+  ]
 }

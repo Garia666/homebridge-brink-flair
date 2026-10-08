@@ -1,6 +1,6 @@
 {
   "name": "homebridge-brink-flair",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "Brink Flair heat recovery ventilation in HomeKit via Brink Home",
   "main": "index.js",
   "license": "MIT",
@@ -8,13 +8,16 @@
   "keywords": [
     "homebridge-plugin",
     "brink",
+    "brink home",
     "flair",
+    "renovent",
     "ventilation",
+    "heat recovery",
     "wtw"
   ],
   "engines": {
-    "node": ">=20",
-    "homebridge": "^1.8.0 || ^2.0.0"
+    "node": "^20.18.0 || ^22.10.0 || ^24.0.0",
+    "homebridge": "^1.8.0 || ^2.0.0-beta.0"
   },
   "files": [
     "index.js",
@@ -28,5 +31,16 @@
   ],
   "dependencies": {
     "@homebridge/plugin-ui-utils": "^2.2.0"
-  }
+  },
+  "displayName": "Homebridge Brink Flair",
+  "funding": [
+    {
+      "type": "ko-fi",
+      "url": "https://ko-fi.com/garianet"
+    },
+    {
+      "type": "individual",
+      "url": "https://garia.net"
+    }
+  ]
 }
