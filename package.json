@@ -1,0 +1,14 @@
+{
+  "name": "homebridge-brink-flair",
+  "version": "0.1.0",
+  "description": "Brink Flair heat recovery ventilation in HomeKit via Brink Home",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Garia.Net",
+  "keywords": ["homebridge-plugin", "brink", "flair", "ventilation", "wtw"],
+  "engines": {
+    "node": ">=20",
+    "homebridge": "^1.8.0 || ^2.0.0"
+  },
+  "files": ["index.js", "lib", "tools/set-credentials.js", "tools/probe.js", "config.schema.json", "README.md", "LICENSE"]
+}

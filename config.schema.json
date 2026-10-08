@@ -1,0 +1,13 @@
+{
+  "pluginAlias": "BrinkFlair",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "Brink Flair via Brink Home. Login credentials are stored encrypted with `tools/set-credentials.js`, not in this config.",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": { "title": "Name", "type": "string", "default": "Ventilatie" },
+      "pollSeconds": { "title": "Refresh interval (seconds)", "type": "integer", "default": 60, "minimum": 30 }
+    }
+  }
+}
