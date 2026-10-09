@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3
+- Fix: names from the settings were not applied to an accessory that already existed, so Homebridge kept showing the names from the first install.
+- Temperatures are rounded to one decimal.
+
 ## 1.0.2
 - Fix: the settings page did not load (script error since 0.7.0), so the login and unit information were not shown.
 
