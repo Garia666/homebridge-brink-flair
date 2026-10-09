@@ -10,6 +10,7 @@
     "properties": {
       "name": { "title": "Fan tile name", "description": "Main tile: off = automatic, 25/50/75/100% = level 0/1/2/3.", "type": "string", "default": "WTW" },
       "pollSeconds": { "title": "Refresh interval (seconds)", "description": "How often values are read from Brink Home. Minimum 30.", "type": "integer", "default": 60, "minimum": 30 },
+      "fan": { "title": "Show fan tile", "description": "Fan tile with a speed slider. Turn off if you control the unit with the level picker only: the tile then becomes a temperature tile (with filter and alerts) that shows the temperature on the tile itself.", "type": "boolean", "default": true },
       "picker": { "title": "Show level picker tile", "description": "Extra tile with named levels, like the inputs of a TV. Add it separately in the Home app with the bridge setup code.", "type": "boolean", "default": true },
       "pickerName": { "title": "Level picker tile name", "type": "string", "default": "WTW stand" },
       "autoName": { "title": "Picker: automatic mode", "description": "The unit controls the level itself.", "type": "string", "default": "Automatisch" },
@@ -17,6 +18,7 @@
       "level1Name": { "title": "Picker: level 1", "description": "Low.", "type": "string", "default": "Laag" },
       "level2Name": { "title": "Picker: level 2", "description": "Normal.", "type": "string", "default": "Normaal" },
       "level3Name": { "title": "Picker: level 3", "description": "Highest level (boost, e.g. when showering).", "type": "string", "default": "Hoog" },
+      "tempTileName": { "title": "Temperature tile name", "description": "Name of the tile when the fan tile is off.", "type": "string", "default": "WTW temperatuur" },
       "freshAirName": { "title": "Fresh air temperature sensor name", "description": "Outside air entering the unit.", "type": "string", "default": "WTW buitenlucht" },
       "supplyAirName": { "title": "Supply air temperature sensor name", "description": "Air blown into the house after heat recovery.", "type": "string", "default": "WTW toevoerlucht" },
       "filterName": { "title": "Filter status name", "description": "Filter indication shown on the fan tile.", "type": "string", "default": "Filter" },
@@ -34,13 +36,13 @@
       "type": "fieldset",
       "title": "Level picker (like TV inputs)",
       "expandable": true,
-      "items": ["picker", "pickerName", "autoName", "level0Name", "level1Name", "level2Name", "level3Name"]
+      "items": ["fan", "picker", "pickerName", "autoName", "level0Name", "level1Name", "level2Name", "level3Name"]
     },
     {
       "type": "fieldset",
       "title": "Sensors",
       "expandable": true,
-      "items": ["freshAirName", "supplyAirName", "filterName", "alertSensors", "filterAlertName", "faultAlertName"]
+      "items": ["tempTileName", "freshAirName", "supplyAirName", "filterName", "alertSensors", "filterAlertName", "faultAlertName"]
     }
   ]
 }

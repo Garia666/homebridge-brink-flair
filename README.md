@@ -23,6 +23,8 @@ Tested on a **Flair 400**. Other units that work with Brink Home are expected to
 
 All names default to Dutch and can be changed in the plugin settings. Each field has an English description.
 
+**Only want the level picker?** Turn off **Show fan tile** in the settings. The fan tile then becomes **WTW temperatuur**: a temperature tile that shows the fresh air temperature on the tile itself, with the supply air temperature, filter and alerts inside. The Home app cannot show temperatures inside the level picker tile.
+
 The Homebridge settings page of the plugin also shows everything Brink Home knows about your unit: serial number, model, software, IP address, mode, level, air flows, temperatures, bypass, pre-heater and filter status.
 
 ## Before you start: connect the Flair to Brink Home

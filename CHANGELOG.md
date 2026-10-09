@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.0
+- New setting **Show fan tile**. Turned off, the fan tile becomes a temperature tile (WTW temperatuur) and the unit is controlled with the level picker only.
+
 ## 1.0.3
 - Fix: names from the settings were not applied to an accessory that already existed, so Homebridge kept showing the names from the first install.
 - Temperatures are rounded to one decimal.
