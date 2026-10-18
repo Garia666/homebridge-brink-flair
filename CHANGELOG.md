@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.1
+- Package: declares HAP support (`supports-hap`); the developer probe script is no longer included in the npm package.
+
 ## 1.1.0
 - New setting **Show fan tile**. Turned off, the fan tile becomes a temperature tile (WTW temperatuur) and the unit is controlled with the level picker only.
 

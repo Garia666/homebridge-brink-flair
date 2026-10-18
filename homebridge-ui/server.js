@@ -50,7 +50,7 @@ const path = require('node:path');
       };
       const out = {
         plugin: require('../package.json').version,
-        homebridge: process.env.HOMEBRIDGE_VERSION || version('homebridge'),
+        homebridge: version('homebridge'),
         node: process.version,
         platform: `${process.platform} ${process.arch}`,
       };
