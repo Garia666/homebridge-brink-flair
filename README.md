@@ -1,5 +1,7 @@
 # homebridge-brink-flair
 
+[![verified-by-homebridge](https://img.shields.io/badge/homebridge-verified-blueviolet?color=%23491F59&style=flat)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
+
 Control your **Brink Flair** heat recovery ventilation unit (WTW) from Apple Home, through the Brink Home cloud.
 
 Tested on a **Flair 400**. Other units that work with Brink Home are expected to work too (see [Compatibility](#compatibility)).
@@ -15,13 +17,15 @@ Tested on a **Flair 400**. Other units that work with Brink Home are expected to
 | Tile | What it does |
 |---|---|
 | **WTW** (fan) | Off = **automatic** (the unit controls itself). 25 / 50 / 75 / 100 % = **level 0 / 1 / 2 / 3** (manual). |
-| **WTW stand** (level picker) | Pick a level by name, like the inputs of a TV: Automatisch, Afwezig, Laag, Normaal, Hoog. |
+| **WTW stand** (level picker) | Pick a level by name, like the inputs of a TV: Automatisch, Afwezig, Laag, Normaal, Hoog. **Separate accessory: add it in the Home app yourself** (see below). |
 | **Filter** | Filter indication on the fan tile. |
 | **WTW filter** (contact sensor) | Opens when the filter needs replacing. Turn on notifications to get a push message. |
 | **WTW storing** (contact sensor) | Opens when the unit reports a fault. |
 | **WTW buitenlucht / toevoerlucht** | Fresh air and supply air temperature. |
 
 All names default to Dutch and can be changed in the plugin settings. Each field has an English description.
+
+> **The level picker does not appear on its own.** Like a TV, HomeKit requires it to be a separate accessory. In the Home app tap **+ > Add Accessory > More options**, pick **WTW stand** and enter the Homebridge setup code (the same PIN as the bridge).
 
 **Only want the level picker?** Turn off **Show fan tile** in the settings. The fan tile then becomes **WTW temperatuur**: a temperature tile that shows the fresh air temperature on the tile itself, with the supply air temperature, filter and alerts inside. The Home app cannot show temperatures inside the level picker tile.
 
