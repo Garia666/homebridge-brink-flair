@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2
+- Verified by Homebridge.
+- README: explains that the level picker is a separate accessory you add in the Home app yourself.
+
 ## 1.1.1
 - Package: declares HAP support (`supports-hap`); the developer probe script is no longer included in the npm package.
 
