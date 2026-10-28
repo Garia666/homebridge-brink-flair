@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.3
+- Package metadata update; no functional changes.
+
 ## 1.1.2
 - Verified by Homebridge.
 - README: explains that the level picker is a separate accessory you add in the Home app yourself.
